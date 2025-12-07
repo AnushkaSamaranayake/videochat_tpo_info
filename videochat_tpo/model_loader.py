@@ -7,6 +7,7 @@ from transformers import AutoModel
 
 from .processor import create_videochat_tpo_processor, VideoChatTPOProcessor
 
+from .task_hooks import SegmentationHook, DetectionHook, TrackingHook
 
 def load_videochat_tpo(
     model_name: str = "OpenGVLab/VideoChat-TPO",
@@ -30,6 +31,10 @@ def load_videochat_tpo(
         torch_dtype=torch_dtype,
         _tokenizer=processor,  # <-- important: passed into MultiModalLLM_PT.__init__
     )
+
+    segmentation_hook = SegmentationHook(device=device)
+    detection_hook = DetectionHook(device=device)
+    tracking_hook = TrackingHook(device=device)
 
     model.to(device)
     model.eval()
