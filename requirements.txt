@@ -1,0 +1,17 @@
+torch>=2.1.0
+torchvision>=0.16.0
+
+transformers>=4.38.0
+accelerate>=0.26.0
+huggingface_hub>=0.23.0
+
+decord>=0.6.0          # for reading videos
+numpy>=1.24
+Pillow>=10.0
+opencv-python>=4.9.0   # optional, nice to have
+
+# Optional but harmless; model will warn if not present
+peft>=0.10.0
+
+# logging / utility
+tqdm>=4.66.0
