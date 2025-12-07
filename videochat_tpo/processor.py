@@ -67,9 +67,15 @@ class VideoChatTPOProcessor:
     def __len__(self) -> int:
         return len(self.tokenizer)
 
-    def __getattr__(self, name: str) -> Any:
-        # proxy anything we don't implement directly
-        return getattr(self.tokenizer, name)
+    def __getattr__(self, name):
+        if name.startswith("__") and name.endswith("__"):
+            raise AttributeError(name)
+
+        tokenizer = super().__getattribute__("tokenizer")
+        if hasattr(tokenizer, name):
+            return getattr(tokenizer, name)
+
+        raise AttributeError(f"'VideoChatTPOProcessor' object has no attribute '{name}'")
 
     def __call__(self, *args, **kwargs):
         return self.tokenizer(*args, **kwargs)
